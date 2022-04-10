@@ -23,14 +23,20 @@ public class RequestController {
     }
 
     @GetMapping(path = "{requestId}")
-    public Request getRequest(@PathVariable("requestId") Long requestId) {
-        return requestService.getRequest(requestId);
+    public GetRequestDTO getRequest(@PathVariable("requestId") Long requestId) {
+        Request request = requestService.getRequest(requestId);
+        return GetRequestDTO.convertToDto(request);
     }
 
     @GetMapping
     public List<ListRequestDTO> getRequests() {
         List<Request> requests = requestService.getRequests();
         return requests.stream().map(ListRequestDTO::convertToDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("/totalizer")
+    public RequestCountTotalizerDTO getTotalizer() {
+        return requestService.getTotalizer();
     }
 
     @PostMapping
@@ -46,10 +52,5 @@ public class RequestController {
     @PutMapping("/change-status")
     public void updateStatusRequest(@RequestBody @Valid UpdateRequestStatusDTO request) {
         requestService.updateRequestStatus(request.convertToEntity());
-    }
-
-    @GetMapping("/totalizer")
-    public RequestCountTotalizerDTO getTotalizer() {
-        return requestService.getTotalizer();
     }
 }
