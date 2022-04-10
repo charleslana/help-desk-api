@@ -19,6 +19,7 @@ public class GetRequestDTO {
     private RequestPriorityEnum priority;
     private RequestStatusEnum status;
     private LocalDateTime updatedAt;
+    private GetUserDTO user;
 
     public static GetRequestDTO convertToDto(Request request) {
         GetRequestDTO listRequestDTO = new GetRequestDTO();
@@ -29,6 +30,7 @@ public class GetRequestDTO {
         listRequestDTO.setUpdatedAt(request.getUpdatedAt());
         listRequestDTO.setJustify(request.getJustify());
         listRequestDTO.setDescription(request.getDescription());
+        listRequestDTO.setUser(GetUserDTO.convertToDto(request.getUser()));
         return listRequestDTO;
     }
 }
