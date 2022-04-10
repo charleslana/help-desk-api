@@ -22,10 +22,10 @@ public class UserController {
         userService.changeUser(user.convertToEntity());
     }
 
-    @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
-    }
+//    @DeleteMapping(path = "{userId}")
+//    public void deleteUser(@PathVariable("userId") Long userId) {
+//        userService.deleteUser(userId);
+//    }
 
     @GetMapping(path = "{userId}")
     public GetUserDTO getUser(@PathVariable("userId") Long userId) {

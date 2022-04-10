@@ -17,7 +17,6 @@ public class ListUserDTO {
     private String email;
     private Long id;
     private String name;
-    private String phoneNumber;
     private UserStatusEnum status;
 
     public static ListUserDTO convertToDto(User user) {
@@ -25,7 +24,6 @@ public class ListUserDTO {
         listUserDTO.setId(user.getId());
         listUserDTO.setName(user.getName());
         listUserDTO.setEmail(user.getEmail());
-        listUserDTO.setPhoneNumber(user.getPhoneNumber());
         listUserDTO.setCreatedAt(user.getCreatedAt());
         listUserDTO.setAccountType(user.getAccountType());
         listUserDTO.setStatus(user.getStatus());
