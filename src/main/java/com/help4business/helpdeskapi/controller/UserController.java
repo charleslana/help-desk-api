@@ -1,10 +1,7 @@
 package com.help4business.helpdeskapi.controller;
 
 import com.help4business.helpdeskapi.entity.User;
-import com.help4business.helpdeskapi.entity.dto.CreateUserDTO;
-import com.help4business.helpdeskapi.entity.dto.ListUserDTO;
-import com.help4business.helpdeskapi.entity.dto.UpdatePasswordDTO;
-import com.help4business.helpdeskapi.entity.dto.UpdateUserDTO;
+import com.help4business.helpdeskapi.entity.dto.*;
 import com.help4business.helpdeskapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +17,20 @@ public class UserController {
 
     private final UserService userService;
 
+    @PutMapping("/change-user")
+    public void changeUser(@RequestBody @Valid ChangeUserDTO user) {
+        userService.changeUser(user.convertToEntity());
+    }
+
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
     }
 
     @GetMapping(path = "{userId}")
-    public ListUserDTO getUser(@PathVariable("userId") Long userId) {
+    public GetUserDTO getUser(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
-        return ListUserDTO.convertToDto(user);
+        return GetUserDTO.convertToDto(user);
     }
 
     @GetMapping

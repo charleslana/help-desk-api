@@ -35,6 +35,13 @@ public class UserService {
         userRepository.save(user.convertToEntity());
     }
 
+    @Transactional
+    public void changeUser(User user) {
+        User existUser = userRepository.findById(user.getId()).orElseThrow(() -> new ObjectNotFoundException(String.format("user with id %d does not exists", user.getId())));
+        existUser.setAccountType(user.getAccountType());
+        existUser.setStatus(user.getStatus());
+    }
+
     public void deleteUser(Long userId) {
         boolean exists = userRepository.existsById(userId);
         if (!exists) {
