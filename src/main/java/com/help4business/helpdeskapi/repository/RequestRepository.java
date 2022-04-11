@@ -13,14 +13,18 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-    @Query("SELECT NEW com.help4business.helpdeskapi.entity.dto.RequestCountDTO (COUNT(r.status), r.status) FROM Request r WHERE r.user.id = :userId GROUP BY r.status")
+    @Query("SELECT NEW com.help4business.helpdeskapi.entity.dto.RequestCountDTO (COUNT(r.status), r.status) FROM Request r WHERE r.appUser.id = :userId GROUP BY r.status")
     List<RequestCountDTO> countRequestByUserId(Long userId);
 
     @Query("SELECT NEW com.help4business.helpdeskapi.entity.dto.RequestCountDTO (COUNT(r.status), r.status) FROM Request r GROUP BY r.status")
     List<RequestCountDTO> countRequestTotal();
 
-    Boolean existsByUserId(Long id);
+    Boolean existsByAppUserId(Long id);
 
-    @Query("SELECT r FROM Request r WHERE r.id = :id AND r.status = :status")
-    Optional<Request> findRequestByIdAndStatus(Long id, RequestStatusEnum status);
+    List<Request> findAllByAppUserId(Long id);
+
+    Optional<Request> findByIdAndAppUserId(Long id, Long userId);
+
+    @Query("SELECT r FROM Request r WHERE r.id = :id AND r.status = :status AND r.appUser.id = :userId")
+    Optional<Request> findRequestByIdAndStatusAndAppUserId(Long id, RequestStatusEnum status, Long userId);
 }

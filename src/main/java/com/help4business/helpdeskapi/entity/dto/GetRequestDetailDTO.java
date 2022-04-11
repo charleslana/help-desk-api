@@ -10,27 +10,23 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class GetRequestDTO {
+public class GetRequestDetailDTO {
 
-    private LocalDateTime createdAt;
     private String description;
     private Long id;
     private String justify;
     private RequestPriorityEnum priority;
     private RequestStatusEnum status;
     private LocalDateTime updatedAt;
-    private GetUserDTO user;
 
-    public static GetRequestDTO convertToDto(Request request) {
-        GetRequestDTO listRequestDTO = new GetRequestDTO();
+    public static GetRequestDetailDTO convertToDto(Request request) {
+        GetRequestDetailDTO listRequestDTO = new GetRequestDetailDTO();
         listRequestDTO.setId(request.getId());
         listRequestDTO.setPriority(request.getPriority());
         listRequestDTO.setStatus(request.getStatus());
-        listRequestDTO.setCreatedAt(request.getCreatedAt());
         listRequestDTO.setUpdatedAt(request.getUpdatedAt());
         listRequestDTO.setJustify(request.getJustify());
         listRequestDTO.setDescription(request.getDescription());
-        listRequestDTO.setUser(GetUserDTO.convertToDto(request.getAppUser()));
         return listRequestDTO;
     }
 }

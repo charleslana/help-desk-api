@@ -1,6 +1,6 @@
 package com.help4business.helpdeskapi.entity.dto;
 
-import com.help4business.helpdeskapi.entity.User;
+import com.help4business.helpdeskapi.entity.AppUser;
 import com.help4business.helpdeskapi.enumeration.AccountType;
 import com.help4business.helpdeskapi.enumeration.UserStatusEnum;
 import lombok.Getter;
@@ -22,11 +22,11 @@ public class ChangeUserDTO {
     @NotNull
     private UserStatusEnum status;
 
-    public User convertToEntity() {
-        User user = new User();
-        user.setId(id);
-        user.setAccountType(accountType);
-        user.setStatus(status);
-        return user;
+    public AppUser convertToEntity() {
+        AppUser appUser = new AppUser();
+        appUser.setId(id);
+        appUser.setAccountType(accountType);
+        appUser.setStatus(status);
+        return appUser;
     }
 }

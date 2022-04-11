@@ -1,7 +1,7 @@
 package com.help4business.helpdeskapi.entity.dto;
 
+import com.help4business.helpdeskapi.entity.AppUser;
 import com.help4business.helpdeskapi.entity.Request;
-import com.help4business.helpdeskapi.entity.User;
 import com.help4business.helpdeskapi.enumeration.RequestPriorityEnum;
 import com.help4business.helpdeskapi.enumeration.RequestStatusEnum;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class CreateRequestDTO {
     @Null
     private RequestStatusEnum status;
 
-    @NotNull
+    @Null
     private Long userId;
 
     public Request convertToEntity() {
@@ -34,9 +34,9 @@ public class CreateRequestDTO {
         request.setDescription(description);
         request.setStatus(status);
         request.setPriority(priority);
-        User user = new User();
-        user.setId(userId);
-        request.setUser(user);
+        AppUser appUser = new AppUser();
+        appUser.setId(userId);
+        request.setAppUser(appUser);
         return request;
     }
 }

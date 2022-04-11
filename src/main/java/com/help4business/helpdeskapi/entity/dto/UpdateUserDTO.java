@@ -1,6 +1,6 @@
 package com.help4business.helpdeskapi.entity.dto;
 
-import com.help4business.helpdeskapi.entity.User;
+import com.help4business.helpdeskapi.entity.AppUser;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -18,9 +18,6 @@ public class UpdateUserDTO {
     private String country;
 
     @NotNull
-    private Long id;
-
-    @NotNull
     @NotBlank
     @Length(max = 50)
     private String name;
@@ -28,12 +25,11 @@ public class UpdateUserDTO {
     @Pattern(regexp = "^\\d{11}$", message = "phone number should be valid")
     private String phoneNumber;
 
-    public User convertToEntity() {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setCountry(country);
-        user.setPhoneNumber(phoneNumber);
-        return user;
+    public AppUser convertToEntity() {
+        AppUser appUser = new AppUser();
+        appUser.setName(name);
+        appUser.setCountry(country);
+        appUser.setPhoneNumber(phoneNumber);
+        return appUser;
     }
 }

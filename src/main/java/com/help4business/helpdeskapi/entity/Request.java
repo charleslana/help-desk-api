@@ -54,5 +54,5 @@ public class Request {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private AppUser appUser;
 }
