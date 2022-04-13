@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.help4business.helpdeskapi.config.PropertiesConfig;
+import com.help4business.helpdeskapi.entity.AppUser;
+import com.help4business.helpdeskapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -29,6 +31,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final AuthenticationManager authenticationManager;
     private final PropertiesConfig propertiesConfig;
+    private final UserService userService;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -45,7 +48,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Algorithm algorithm = Algorithm.HMAC256(propertiesConfig.getSecret().getBytes());
         String accessToken = JWT.create().withSubject(user.getUsername()).withExpiresAt(new Date(System.currentTimeMillis() + 18000000)).sign(algorithm);
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", accessToken);
+        AppUser authUser = userService.getUserByEmail(user.getUsername());
+        tokens.put("accessToken", accessToken);
+        tokens.put("email", authUser.getEmail());
+        tokens.put("accountType", authUser.getAccountType().toString());
+        tokens.put("name", authUser.getName());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

@@ -27,8 +27,8 @@ import java.util.Collections;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final BCryptPasswordEncoder encoder;
-    private final UserDetailsService userDetailsService;
     private final PropertiesConfig propertiesConfig;
+    private final UserDetailsService userDetailsService;
     private final UserService userService;
 
     @Override
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable();
         http.logout().deleteCookies("JSESSIONID");
         http.csrf().disable().authorizeRequests().anyRequest().permitAll().and().cors().configurationSource(request -> getCorsConfiguration());
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), propertiesConfig));
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), propertiesConfig, userService));
         http.addFilterBefore(new CustomAuthorizationFilter(propertiesConfig, userService), UsernamePasswordAuthenticationFilter.class);
     }
 

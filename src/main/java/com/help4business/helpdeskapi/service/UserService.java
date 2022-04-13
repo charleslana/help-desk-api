@@ -84,7 +84,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException(String.format("user with id %d does not exists", userId)));
     }
 
-    private AppUser getUserByEmail(String email) {
+    public AppUser getUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new ObjectNotFoundException(String.format("email %s does not exists", email)));
     }
 
