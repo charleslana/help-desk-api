@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class GetRequestDetailDTO {
 
+    private LocalDateTime createdAt;
     private String description;
     private Long id;
     private String justify;
@@ -25,6 +26,7 @@ public class GetRequestDetailDTO {
         listRequestDTO.setPriority(request.getPriority());
         listRequestDTO.setStatus(request.getStatus());
         listRequestDTO.setUpdatedAt(request.getUpdatedAt());
+        listRequestDTO.setCreatedAt(request.getCreatedAt());
         listRequestDTO.setJustify(request.getJustify());
         listRequestDTO.setDescription(request.getDescription());
         return listRequestDTO;
