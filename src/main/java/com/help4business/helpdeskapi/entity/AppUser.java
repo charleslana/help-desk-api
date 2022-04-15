@@ -18,7 +18,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "appuser")
 @RequiredArgsConstructor
 public class AppUser implements UserDetails {
     @Column(name = "account_type", nullable = false)
